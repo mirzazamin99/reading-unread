@@ -17,9 +17,9 @@ const body = Public_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Dr. Aamir | The Reading",
+  title: "Dr. Aamir",
   description:
-    "Answer twenty five questions and get your life read back to you: what's actually going on, the one thing in the way, and fourteen days of small moves. Free, from Dr. Aamir.",
+    "Answer six questions and get matched with the coaching modules built for where you are right now: confidence, discipline, direction, speaking, or decision-making. Free to start.",
 };
 
 const THEME_INIT_SCRIPT = `(function(){try{var t=localStorage.getItem('theme');if(t!=='light'&&t!=='dark'){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})();`;

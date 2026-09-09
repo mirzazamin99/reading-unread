@@ -50,6 +50,97 @@
     "showPrices": false,
     "isDraftCopy": true
   },
+  "assessment": {
+    "intro": "Six questions. Answer honestly, there are no right answers.",
+    "form": {
+      "nameLabel": "Name",
+      "emailLabel": "Email",
+      "submitLabel": "Submit",
+      "submittingLabel": "Sending",
+      "successHeading": "Thank you.",
+      "successBody": "Your answers are saved. Head to your modules to get started.",
+      "continueLabel": "Go to your modules",
+      "genericError": "Something went wrong. Please try again.",
+      "networkError": "Could not reach the server. Check your connection and try again.",
+      "blankAnswerError": "This question was left blank.",
+      "tooLongError": "This answer is too long. Keep it under 5000 characters.",
+      "formulaCharError": "This answer cannot start a line with =, +, - or @.",
+      "invalidEmailError": "Enter a valid email address.",
+      "nameRequiredError": "Enter your name.",
+      "emailRequiredError": "Enter your email."
+    },
+    "questions": [
+      { "id": "q1_dream", "text": "What is your dream in life?", "rows": 4 },
+      { "id": "q2_obstacle", "text": "What is the one thing that has been holding you back?", "rows": 4 },
+      { "id": "q3_daily_behavior", "text": "Describe yesterday, hour by hour.", "rows": 4 },
+      { "id": "q4_self_talk", "text": "What do you tell yourself when you fail at something?", "rows": 4 },
+      { "id": "q5_avoided_conversation", "text": "What is a conversation you have been avoiding?", "rows": 4 },
+      { "id": "q6_money_freedom", "text": "If money was not a factor, what would you spend your time doing?", "rows": 4 }
+    ]
+  },
+  "modules": {
+    "pageHeading": "Your modules",
+    "pageIntro": "Based on your answers, here is where to start.",
+    "emptyLabel": "No modules assigned yet.",
+    "loadErrorLabel": "Could not load your modules.",
+    "missingUserLabel": "No user id given in the page address.",
+    "statusLabels": {
+      "assigned": "Not started",
+      "in_progress": "In progress",
+      "completed": "Completed"
+    },
+    "stepLabels": {
+      "intro": "Introduction",
+      "core_lesson": "Lesson",
+      "reflection_prompt": "Reflection",
+      "micro_action": "Micro-action",
+      "check_in": "Check-in"
+    },
+    "continueLabel": "Continue",
+    "saveContinueLabel": "Save and continue",
+    "savingLabel": "Saving",
+    "savedLabel": "Saved",
+    "markDoneLabel": "Mark as done",
+    "doneLabel": "Done",
+    "checkInLockedLabel": "This check-in unlocks a few days after you start the module.",
+    "checkInAvailableFromLabel": "Available from",
+    "backToModulesLabel": "Back to your modules",
+    "saveErrorLabel": "Could not save. Try again.",
+    "notFoundLabel": "That module was not assigned to you."
+  },
+  "admin": {
+    "queue": {
+      "heading": "Who signed up",
+      "signOutLabel": "Sign out",
+      "emptyLabel": "No one has completed the assessment yet.",
+      "loadErrorLabel": "Could not load users.",
+      "modulesLinkLabel": "Module content"
+    },
+    "detail": {
+      "backLabel": "Back to the list",
+      "answersHeading": "Their assessment answers",
+      "modulesHeading": "Modules assigned",
+      "responsesHeading": "Their reflections",
+      "noResponsesLabel": "No response yet.",
+      "loadErrorLabel": "Could not load this user."
+    },
+    "modules": {
+      "heading": "Module content",
+      "intro": "Edit what each module says. Changes apply the next time someone opens it.",
+      "backLabel": "Back to admin",
+      "nameLabel": "Name",
+      "introLabel": "Intro",
+      "coreLessonLabel": "Core lesson",
+      "reflectionPromptLabel": "Reflection prompt",
+      "microActionLabel": "Micro-action",
+      "checkInQuestionLabel": "Check-in question",
+      "checkInDelayLabel": "Check-in unlocks after (days)",
+      "saveLabel": "Save",
+      "savingLabel": "Saving",
+      "savedLabel": "Saved",
+      "saveErrorLabel": "Could not save. Try again."
+    }
+  },
   "reading": {
     "intro": "Twenty five questions. Answer honestly, nobody sees these but him.",
     "form": {
@@ -243,8 +334,8 @@
   "operator": {
     "unauthenticatedLabel": "Not authenticated.",
     "login": {
-      "panelTitle": "Reading operator",
-      "tagline": "Their words, your work.",
+      "panelTitle": "Coaching admin",
+      "tagline": "Their answers, your modules.",
       "heading": "Welcome back, Aamir",
       "passwordLabel": "Password",
       "submitLabel": "Sign in",
@@ -348,14 +439,15 @@
       "howItWorks": "How it works",
       "whoItsFor": "Who it's for",
       "services": "Services",
-      "primaryCta": "Start the reading",
-      "secondaryCta": "Book a consultation"
+      "primaryCta": "Start the assessment",
+      "secondaryCta": "Book a consultation",
+      "yourModules": "Your modules"
     },
     "hero": {
-      "line1": "Tell me what you did last Sunday.",
-      "line2": "Hour by hour. Most people cannot get past lunch.",
-      "body": "Answer twenty-five questions and I will read your life back to you. One page, written by me, inside three days. There is no charge and nothing to buy afterwards.",
-      "buttonLabel": "Start the reading",
+      "line1": "Six questions.",
+      "line2": "Then a path built around what you actually said.",
+      "body": "Answer honestly and you will be matched with the modules built for where you are right now: confidence, discipline, direction, speaking, or decision-making. No charge, no obligation.",
+      "buttonLabel": "Start the assessment",
       "secondaryLabel": "Or book a consultation directly"
     },
     "credibility": {
@@ -367,9 +459,9 @@
       "pills": ["PhD, Literary Studies", "23+ Research Presentations", "National & International Conferences"]
     },
     "protocol": {
-      "name": "The Direction Protocol",
-      "heading": "Read. Plot. Draft. Revise.",
-      "intro": "Four moves, built on ten years of doing this one conversation at a time. They only work in that order, and the first one starts with the reading above."
+      "name": "How it works",
+      "heading": "Answer. Get matched. Do the work.",
+      "intro": "Three steps, and the modules only fit if the answers are honest."
     },
     "agreeingTo": {
       "heading": "What you are agreeing to",
@@ -390,28 +482,23 @@
       ]
     },
     "method": {
-      "heading": "Read. Plot. Draft. Revise.",
-      "intro": "Four moves, and they only work in that order.",
+      "heading": "Answer. Get matched. Do the work.",
+      "intro": "Three steps, and they only work in that order.",
       "moves": [
         {
           "number": "01",
-          "title": "Read",
-          "body": "The audit. Where your time, money and attention went last month, measured rather than remembered. This is the part where people go quiet."
+          "title": "Assess",
+          "body": "Six honest questions: your dream, what is holding you back, how you actually spend your days, what you tell yourself when you fail, the conversation you are avoiding, and what you would do if money were not a factor."
         },
         {
           "number": "02",
-          "title": "Plot",
-          "body": "What the life is for. Not a list of goals. A direction, what it costs, and what you are giving up in order to go that way, because a plan that gives up nothing is a wish with better handwriting."
+          "title": "Match",
+          "body": "Your answers point to the modules that fit, up to three out of five: confidence and self-worth, speaking and communication, discipline and habits, purpose and direction, or decision-making and fear."
         },
         {
           "number": "03",
-          "title": "Draft",
-          "body": "The daily sheet. One page. What today is for."
-        },
-        {
-          "number": "04",
-          "title": "Revise",
-          "body": "Sunday. You reread the week you actually had, and change the one ahead. Every method I have come across skips this, and every one of them stops working somewhere around week three."
+          "title": "Practice",
+          "body": "Each module is five short steps: a lesson, a reflection you write yourself, one small action, and a check-in a few days later."
         }
       ]
     },
@@ -426,8 +513,8 @@
       ]
     },
     "closing": {
-      "heading": "Nothing changes until you decide to read it back.",
-      "buttonLabel": "Start the reading",
+      "heading": "Nothing changes until you answer honestly.",
+      "buttonLabel": "Start the assessment",
       "secondaryLabel": "Or book a consultation directly"
     },
     "refusals": {

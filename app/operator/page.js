@@ -3,18 +3,9 @@ import { getSupabaseAdmin } from "../../lib/supabase-admin";
 import content from "../../content.json";
 import OperatorHeader from "./OperatorHeader";
 
-const { queue } = content.operator;
+const { queue } = content.admin;
 
 export const dynamic = "force-dynamic";
-
-function sortSubmissions(rows) {
-  return [...rows].sort((a, b) => {
-    const aMarked = a.flagged || a.draft_status === "failed";
-    const bMarked = b.flagged || b.draft_status === "failed";
-    if (aMarked !== bMarked) return aMarked ? -1 : 1;
-    return new Date(b.submitted_at) - new Date(a.submitted_at);
-  });
-}
 
 function formatDate(iso) {
   return new Date(iso).toLocaleString("en-IN", {
@@ -26,28 +17,26 @@ function formatDate(iso) {
   });
 }
 
-function statusText(row) {
-  const parts = row.draft_status === "flagged" ? [] : [queue.statusLabels[row.draft_status] || row.draft_status];
-  if (row.flagged) parts.push(queue.flaggedLabel);
-  if (row.sent) parts.push(queue.sentLabel);
-  return parts.join(" · ");
-}
-
-export default async function OperatorQueuePage({ searchParams }) {
-  const { show } = (await searchParams) || {};
-  const showAll = show === "all";
-
+export default async function OperatorQueuePage() {
   const supabaseAdmin = getSupabaseAdmin();
-  const { data, error } = await supabaseAdmin
-    .from("submissions")
-    .select("id, name, email, submitted_at, draft_status, flagged, sent")
-    .order("submitted_at", { ascending: false });
+
+  const { data: users, error } = await supabaseAdmin
+    .from("users")
+    .select("id, name, email, created_at")
+    .order("created_at", { ascending: false });
 
   if (error) console.error("Queue load failed:", error.message);
 
-  const allRows = sortSubmissions(data || []);
-  const rows = showAll ? allRows : allRows.filter((row) => !row.sent);
-  const hasSent = allRows.some((row) => row.sent);
+  const { data: assignments } = await supabaseAdmin
+    .from("module_assignments")
+    .select("user_id, status");
+
+  const countsByUser = {};
+  for (const a of assignments || []) {
+    countsByUser[a.user_id] = countsByUser[a.user_id] || { total: 0, completed: 0 };
+    countsByUser[a.user_id].total += 1;
+    if (a.status === "completed") countsByUser[a.user_id].completed += 1;
+  }
 
   return (
     <>
@@ -57,57 +46,41 @@ export default async function OperatorQueuePage({ searchParams }) {
           <h1 className="font-display text-3xl font-medium text-foreground md:text-4xl">
             {queue.heading}
           </h1>
-          {hasSent && (
-            <Link
-              href={showAll ? "/operator" : "/operator?show=all"}
-              className="text-sm font-medium text-foreground-faint underline-offset-4 transition-colors duration-300 ease-out hover:text-foreground hover:underline"
-            >
-              {showAll ? queue.showPendingLabel : queue.showSentLabel}
-            </Link>
-          )}
+          <Link
+            href="/operator/modules"
+            className="text-sm font-medium text-foreground-faint underline-offset-4 transition-colors duration-300 ease-out hover:text-foreground hover:underline"
+          >
+            {queue.modulesLinkLabel}
+          </Link>
         </div>
 
         {error && (
           <p className="mt-8 text-base font-medium text-accent-text">{queue.loadErrorLabel}</p>
         )}
 
-        {!error && allRows.length === 0 && (
+        {!error && (users || []).length === 0 && (
           <p className="mt-8 text-base text-foreground-faint">{queue.emptyLabel}</p>
         )}
 
-        {!error && allRows.length > 0 && rows.length === 0 && (
-          <p className="mt-8 text-base text-foreground-faint">{queue.allCaughtUpLabel}</p>
-        )}
-
-        {!error && rows.length > 0 && (
+        {!error && (users || []).length > 0 && (
           <div className="mt-10 flex flex-col gap-4">
-            {rows.map((row) => {
-              const marked = row.flagged || row.draft_status === "failed";
-              const badgeLabel = row.flagged
-                ? queue.flaggedLabel
-                : queue.statusLabels[row.draft_status] || row.draft_status;
+            {users.map((user) => {
+              const counts = countsByUser[user.id] || { total: 0, completed: 0 };
               return (
                 <Link
-                  key={row.id}
-                  href={`/operator/${row.id}`}
+                  key={user.id}
+                  href={`/operator/${user.id}`}
                   className="flex flex-col gap-3 rounded-2xl border border-edge bg-surface px-5 py-5 shadow-[var(--shadow-card)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-accent-hover/40 hover:shadow-[var(--shadow-card-hover)] sm:flex-row sm:items-center sm:justify-between sm:gap-6 sm:px-6"
                 >
                   <div>
-                    <p className="font-display text-lg text-foreground">{row.name}</p>
-                    <p className="text-sm text-foreground-faint">{row.email}</p>
+                    <p className="font-display text-lg text-foreground">{user.name}</p>
+                    <p className="text-sm text-foreground-faint">{user.email}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 sm:justify-end">
-                    <span
-                      className={
-                        marked
-                          ? "rounded-full bg-accent px-3 py-1 text-xs font-medium text-paper"
-                          : "rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text"
-                      }
-                    >
-                      {badgeLabel}
+                    <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text">
+                      {counts.completed}/{counts.total} modules complete
                     </span>
-                    <p className="text-sm text-foreground-faint">{formatDate(row.submitted_at)}</p>
-                    <p className="text-sm text-foreground-dim">{statusText(row)}</p>
+                    <p className="text-sm text-foreground-faint">{formatDate(user.created_at)}</p>
                   </div>
                 </Link>
               );

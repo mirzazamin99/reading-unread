@@ -1,6 +1,6 @@
 import content from "../../content.json";
 import BookButton from "../components/BookButton";
-import ReadingButton from "../components/ReadingButton";
+import AssessmentButton from "../components/AssessmentButton";
 import Reveal from "../components/Reveal";
 import { CheckIcon } from "../components/icons";
 
@@ -26,7 +26,7 @@ export default function Home() {
           style={{ animationDelay: "300ms" }}
           className="mt-10 flex animate-[rise_0.9s_cubic-bezier(0.16,1,0.3,1)_backwards] flex-col items-center gap-4"
         >
-          <ReadingButton />
+          <AssessmentButton />
           <BookButton compact className="!bg-transparent !text-foreground-faint !shadow-none hover:!bg-transparent hover:!text-foreground-dim" />
         </div>
       </section>
@@ -129,7 +129,7 @@ export default function Home() {
             {closing.heading}
           </p>
           <div className="mt-12 flex flex-col items-center gap-4">
-            <ReadingButton />
+            <AssessmentButton />
             <BookButton compact className="!bg-transparent !text-paper-dim !shadow-none hover:!bg-transparent hover:!text-paper" />
           </div>
         </div>

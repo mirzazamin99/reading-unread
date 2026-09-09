@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import content from "../../content.json";
-import ReadingButton from "./ReadingButton";
+import AssessmentButton from "./AssessmentButton";
 import ThemeToggle, { useTheme } from "./ThemeToggle";
 import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "./icons";
 
@@ -17,7 +17,20 @@ const NAV_LINKS = [
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [savedUserId, setSavedUserId] = useState<string | null>(null);
   const { theme, toggle } = useTheme();
+
+  useEffect(() => {
+    // Reads a value an external system (localStorage) already holds before
+    // this component's first render -- exactly the case this rule means to
+    // allow.
+    try {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setSavedUserId(localStorage.getItem("lifeAssessmentUserId"));
+    } catch {
+      // storage unavailable -- the link just won't show
+    }
+  }, []);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -62,13 +75,21 @@ export default function Header() {
 
         <div className="hidden items-center gap-3 md:flex">
           <ThemeToggle />
+          {savedUserId && (
+            <Link
+              href={`/modules?userId=${savedUserId}`}
+              className="text-sm font-medium text-foreground-dim transition-colors duration-300 ease-out hover:text-foreground"
+            >
+              {nav.yourModules}
+            </Link>
+          )}
           <Link
             href="/#consultation"
             className="text-sm font-medium text-foreground-dim transition-colors duration-300 ease-out hover:text-foreground"
           >
             {nav.secondaryCta}
           </Link>
-          <ReadingButton compact />
+          <AssessmentButton compact />
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
@@ -122,7 +143,16 @@ export default function Header() {
                 <MoonIcon className="h-[1.1rem] w-[1.1rem]" />
               )}
             </button>
-            <ReadingButton className="w-full justify-center" onClick={closeMenu} />
+            <AssessmentButton className="w-full justify-center" onClick={closeMenu} />
+            {savedUserId && (
+              <Link
+                href={`/modules?userId=${savedUserId}`}
+                onClick={closeMenu}
+                className="mt-4 block text-center text-sm font-medium text-foreground-dim underline-offset-4 hover:underline"
+              >
+                {nav.yourModules}
+              </Link>
+            )}
             <Link
               href="/#consultation"
               onClick={closeMenu}

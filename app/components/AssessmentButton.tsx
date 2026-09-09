@@ -1,20 +1,20 @@
 import Link from "next/link";
 import content from "../../content.json";
 
-type ReadingButtonProps = {
+type AssessmentButtonProps = {
   className?: string;
   compact?: boolean;
   onClick?: () => void;
 };
 
-export default function ReadingButton({
+export default function AssessmentButton({
   className = "",
   compact = false,
   onClick,
-}: ReadingButtonProps) {
+}: AssessmentButtonProps) {
   return (
     <Link
-      href="/read"
+      href="/assessment"
       onClick={onClick}
       className={`group inline-flex items-center rounded-full bg-accent font-body font-medium tracking-wide text-paper transition-all duration-300 ease-out hover:bg-accent-hover active:bg-accent-press ${
         compact
