@@ -13,7 +13,7 @@ const MICRO_ACTION_DONE_MARKER = "Completed";
 const textareaClass =
   "mt-4 block w-full rounded-xl border border-edge bg-surface px-4 py-3 text-base leading-relaxed text-foreground shadow-[0_2px_6px_rgba(0,0,0,0.12)] outline-none transition-all duration-300 ease-out focus-visible:border-accent-hover focus-visible:shadow-[0_0_0_4px_var(--accent-soft),0_2px_10px_rgba(0,0,0,0.15)]";
 const buttonClass =
-  "mt-6 inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-body text-[0.95rem] font-medium tracking-wide text-paper shadow-[0_14px_28px_-12px_rgba(130,35,47,0.5)] transition-all duration-300 ease-out hover:bg-accent-hover hover:shadow-[0_18px_34px_-10px_rgba(154,44,58,0.55)] active:bg-accent-press disabled:opacity-60";
+  "mt-6 inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-body text-[0.95rem] font-medium tracking-wide text-paper shadow-[var(--shadow-cta)] transition-all duration-300 ease-out hover:bg-accent-hover hover:shadow-[var(--shadow-cta-hover)] active:bg-accent-press disabled:opacity-60";
 
 function initialStepIndex(responses) {
   if (!responses.reflection_prompt) return 0;

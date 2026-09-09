@@ -80,7 +80,7 @@ export default function OperatorLoginPage() {
             <button
               type="submit"
               disabled={submitting}
-              className="mt-6 w-full rounded-full bg-accent px-8 py-3.5 text-[0.95rem] font-medium tracking-wide text-paper shadow-[0_14px_28px_-12px_rgba(130,35,47,0.5)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-[0_20px_38px_-10px_rgba(154,44,58,0.6)] focus-visible:shadow-[var(--shadow-glow)] active:translate-y-0 active:bg-accent-press disabled:opacity-60 disabled:hover:translate-y-0"
+              className="mt-6 w-full rounded-full bg-accent px-8 py-3.5 text-[0.95rem] font-medium tracking-wide text-paper shadow-[var(--shadow-cta)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-[var(--shadow-cta-hover-lg)] focus-visible:shadow-[var(--shadow-glow)] active:translate-y-0 active:bg-accent-press disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {submitting ? login.submittingLabel : login.submitLabel}
             </button>

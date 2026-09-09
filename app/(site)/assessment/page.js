@@ -70,7 +70,7 @@ export default function AssessmentPage() {
         <button
           type="button"
           onClick={() => router.push(`/modules?userId=${userId}`)}
-          className="inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-body text-[0.95rem] font-medium tracking-wide text-paper shadow-[0_14px_28px_-12px_rgba(130,35,47,0.5)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-[0_20px_38px_-10px_rgba(154,44,58,0.6)] active:bg-accent-press"
+          className="inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-body text-[0.95rem] font-medium tracking-wide text-paper shadow-[var(--shadow-cta)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:bg-accent-hover hover:shadow-[var(--shadow-cta-hover-lg)] active:bg-accent-press"
         >
           {form.continueLabel}
           <span aria-hidden="true">&rarr;</span>
@@ -149,7 +149,7 @@ export default function AssessmentPage() {
         <button
           type="submit"
           disabled={status === "submitting"}
-          className="mt-12 inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-body text-[0.95rem] font-medium tracking-wide text-paper shadow-[0_14px_28px_-12px_rgba(130,35,47,0.5)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-accent-hover hover:shadow-[0_20px_38px_-10px_rgba(154,44,58,0.6)] active:scale-[0.98] active:bg-accent-press disabled:opacity-60 disabled:hover:scale-100 disabled:hover:translate-y-0"
+          className="mt-12 inline-flex items-center gap-2.5 rounded-full bg-accent px-8 py-4 font-body text-[0.95rem] font-medium tracking-wide text-paper shadow-[var(--shadow-cta)] transition-all duration-300 ease-out hover:-translate-y-0.5 hover:scale-[1.02] hover:bg-accent-hover hover:shadow-[var(--shadow-cta-hover-lg)] active:scale-[0.98] active:bg-accent-press disabled:opacity-60 disabled:hover:scale-100 disabled:hover:translate-y-0"
         >
           {status === "submitting" ? form.submittingLabel : form.submitLabel}
         </button>

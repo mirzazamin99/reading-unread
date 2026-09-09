@@ -8,8 +8,8 @@
   --foreground-dim: #6b5c4d;
   --foreground-faint: #9c8a78;
   --edge: #ddceba;
-  --accent-text: #82232f;
-  --accent-soft: #f0d7d4;
+  --accent-text: #1f3a5c;
+  --accent-soft: #e1e9f2;
 
   /* Closing CTA band — a deliberate contrast surface, tuned per theme */
   --cta-band: #16110c;
@@ -17,9 +17,9 @@
   --paper-dim: #c7b49b;
 
   /* Accent — button fill, tuned per theme so it never muddies against a dark ground */
-  --accent: #82232f;
-  --accent-hover: #9a2c3a;
-  --accent-press: #5c1822;
+  --accent: #1f3a5c;
+  --accent-hover: #2c4f79;
+  --accent-press: #16283f;
 
   --font-display: "Bodoni Moda", Georgia, serif;
   --font-body: "Public Sans", system-ui, sans-serif;
@@ -27,27 +27,37 @@
   /* Depth system — tuned per theme so cards read as lifted, not just outlined */
   --shadow-card: 0 1px 2px rgba(26, 20, 15, 0.04), 0 10px 24px -14px rgba(26, 20, 15, 0.14);
   --shadow-card-hover: 0 2px 6px rgba(26, 20, 15, 0.06), 0 20px 38px -16px rgba(26, 20, 15, 0.18);
-  --shadow-glow: 0 0 0 3px var(--accent-soft), 0 8px 20px -14px rgba(130, 35, 47, 0.2);
+  --shadow-glow: 0 0 0 3px var(--accent-soft), 0 8px 20px -14px rgba(31, 58, 92, 0.2);
+  --shadow-cta: 0 14px 28px -12px rgba(31, 58, 92, 0.5);
+  --shadow-cta-hover: 0 18px 34px -10px rgba(44, 79, 121, 0.55);
+  --shadow-cta-hover-lg: 0 20px 38px -10px rgba(44, 79, 121, 0.6);
+  --shadow-cta-compact: 0 4px 10px -4px rgba(31, 58, 92, 0.4);
+  --shadow-cta-compact-hover: 0 6px 14px -4px rgba(44, 79, 121, 0.45);
   --auth-vignette: radial-gradient(120% 100% at 50% -10%, var(--surface-tint) 0%, var(--surface) 62%);
 }
 
 :root[data-theme="dark"] {
-  --surface: #3d0f18;
-  --surface-tint: #4a1720;
+  --surface: #0f2038;
+  --surface-tint: #16294a;
   --foreground: #f4ebdc;
   --foreground-dim: #c7b49b;
   --foreground-faint: #a8877c;
-  --edge: #5c2a34;
-  --accent-text: #dd8188;
-  --accent-soft: #522029;
-  --cta-band: #1c070d;
-  --accent: #b8324f;
-  --accent-hover: #d13d5c;
-  --accent-press: #8c2540;
+  --edge: #2e4a6e;
+  --accent-text: #9fc1ee;
+  --accent-soft: #223f63;
+  --cta-band: #081222;
+  --accent: #4a7fd1;
+  --accent-hover: #5c90de;
+  --accent-press: #3868ac;
 
   --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.3), 0 12px 28px -14px rgba(0, 0, 0, 0.55);
   --shadow-card-hover: 0 3px 8px rgba(0, 0, 0, 0.35), 0 22px 42px -16px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 0 4px var(--accent-soft), 0 12px 34px -10px rgba(184, 50, 79, 0.4);
+  --shadow-glow: 0 0 0 4px var(--accent-soft), 0 12px 34px -10px rgba(74, 127, 209, 0.4);
+  --shadow-cta: 0 14px 28px -12px rgba(74, 127, 209, 0.5);
+  --shadow-cta-hover: 0 18px 34px -10px rgba(92, 144, 222, 0.55);
+  --shadow-cta-hover-lg: 0 20px 38px -10px rgba(92, 144, 222, 0.6);
+  --shadow-cta-compact: 0 4px 10px -4px rgba(74, 127, 209, 0.4);
+  --shadow-cta-compact-hover: 0 6px 14px -4px rgba(92, 144, 222, 0.45);
 }
 
 @theme inline {

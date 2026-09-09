@@ -1,9 +1,10 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getSupabaseAdmin } from "../../../../lib/supabase-admin";
+import { getSupabaseAdmin, isMissingTableError } from "../../../../lib/supabase-admin";
 import content from "../../../../content.json";
 import OperatorHeader from "../../OperatorHeader";
 import ModuleEditForm from "./ModuleEditForm";
+import SetupNotice from "../../SetupNotice";
 
 const { modules: copy } = content.admin;
 
@@ -19,11 +20,21 @@ export default async function OperatorModuleEditPage({ params }) {
     .eq("module_id", moduleId)
     .maybeSingle();
 
+  if (error && isMissingTableError(error)) {
+    return (
+      <>
+        <OperatorHeader active="modules" />
+        <main className="mx-auto max-w-[760px] px-6 py-12 md:px-10 md:py-16">
+          <SetupNotice />
+        </main>
+      </>
+    );
+  }
   if (error || !module) notFound();
 
   return (
     <>
-      <OperatorHeader />
+      <OperatorHeader active="modules" />
       <main className="mx-auto max-w-[760px] px-6 py-12 md:px-10 md:py-16">
         <Link
           href="/operator/modules"

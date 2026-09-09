@@ -1,7 +1,8 @@
 import Link from "next/link";
-import { getSupabaseAdmin } from "../../lib/supabase-admin";
+import { getSupabaseAdmin, isMissingTableError } from "../../lib/supabase-admin";
 import content from "../../content.json";
 import OperatorHeader from "./OperatorHeader";
+import SetupNotice from "./SetupNotice";
 
 const { queue } = content.admin;
 
@@ -32,39 +33,58 @@ export default async function OperatorQueuePage() {
     .select("user_id, status");
 
   const countsByUser = {};
+  let totalAssigned = 0;
+  let totalCompleted = 0;
   for (const a of assignments || []) {
     countsByUser[a.user_id] = countsByUser[a.user_id] || { total: 0, completed: 0 };
     countsByUser[a.user_id].total += 1;
-    if (a.status === "completed") countsByUser[a.user_id].completed += 1;
+    totalAssigned += 1;
+    if (a.status === "completed") {
+      countsByUser[a.user_id].completed += 1;
+      totalCompleted += 1;
+    }
   }
+
+  const rows = users || [];
+  const stats = [
+    { label: "People", value: rows.length },
+    { label: "Modules assigned", value: totalAssigned },
+    { label: "Completed", value: totalCompleted },
+  ];
 
   return (
     <>
-      <OperatorHeader label={queue.signOutLabel} />
+      <OperatorHeader active="users" />
       <main className="mx-auto max-w-[1100px] px-6 py-12 md:px-10 md:py-16">
-        <div className="flex flex-wrap items-baseline justify-between gap-3">
-          <h1 className="font-display text-3xl font-medium text-foreground md:text-4xl">
-            {queue.heading}
-          </h1>
-          <Link
-            href="/operator/modules"
-            className="text-sm font-medium text-foreground-faint underline-offset-4 transition-colors duration-300 ease-out hover:text-foreground hover:underline"
-          >
-            {queue.modulesLinkLabel}
-          </Link>
-        </div>
+        <h1 className="font-display text-3xl font-medium text-foreground md:text-4xl">
+          {queue.heading}
+        </h1>
 
-        {error && (
+        {!error && rows.length > 0 && (
+          <div className="mt-8 grid grid-cols-3 divide-x divide-edge overflow-hidden rounded-2xl border border-edge bg-surface shadow-[var(--shadow-card)]">
+            {stats.map((stat) => (
+              <div key={stat.label} className="px-4 py-5 text-center sm:px-6">
+                <p className="font-display text-2xl text-foreground md:text-3xl">{stat.value}</p>
+                <p className="mt-1 text-xs font-medium text-foreground-faint sm:text-sm">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {error && isMissingTableError(error) && <SetupNotice />}
+        {error && !isMissingTableError(error) && (
           <p className="mt-8 text-base font-medium text-accent-text">{queue.loadErrorLabel}</p>
         )}
 
-        {!error && (users || []).length === 0 && (
+        {!error && rows.length === 0 && (
           <p className="mt-8 text-base text-foreground-faint">{queue.emptyLabel}</p>
         )}
 
-        {!error && (users || []).length > 0 && (
+        {!error && rows.length > 0 && (
           <div className="mt-10 flex flex-col gap-4">
-            {users.map((user) => {
+            {rows.map((user) => {
               const counts = countsByUser[user.id] || { total: 0, completed: 0 };
               return (
                 <Link
@@ -77,7 +97,13 @@ export default async function OperatorQueuePage() {
                     <p className="text-sm text-foreground-faint">{user.email}</p>
                   </div>
                   <div className="flex flex-wrap items-center gap-3 sm:justify-end">
-                    <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text">
+                    <span
+                      className={
+                        counts.total > 0 && counts.completed === counts.total
+                          ? "rounded-full bg-accent px-3 py-1 text-xs font-medium text-paper"
+                          : "rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text"
+                      }
+                    >
                       {counts.completed}/{counts.total} modules complete
                     </span>
                     <p className="text-sm text-foreground-faint">{formatDate(user.created_at)}</p>

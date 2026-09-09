@@ -1,13 +1,15 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { getSupabaseAdmin } from "../../../lib/supabase-admin";
+import { getSupabaseAdmin, isMissingTableError } from "../../../lib/supabase-admin";
 import content from "../../../content.json";
 import OperatorHeader from "../OperatorHeader";
+import SetupNotice from "../SetupNotice";
 
 const { detail } = content.admin;
 const { modules: modulesCopy } = content;
 const QUESTION_BY_ID = Object.fromEntries(content.assessment.questions.map((q) => [q.id, q.text]));
 const QUESTION_ORDER = content.assessment.questions.map((q) => q.id);
+const RESPONSE_STEPS = ["reflection_prompt", "micro_action", "check_in"];
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +23,16 @@ export default async function OperatorUserPage({ params }) {
     .eq("id", id)
     .maybeSingle();
 
+  if (userError && isMissingTableError(userError)) {
+    return (
+      <>
+        <OperatorHeader active="users" />
+        <main className="mx-auto max-w-[1100px] px-6 py-12 md:px-10 md:py-16">
+          <SetupNotice />
+        </main>
+      </>
+    );
+  }
   if (userError || !user) notFound();
 
   const [{ data: answers }, { data: assignments }, { data: responses }] = await Promise.all([
@@ -52,7 +64,7 @@ export default async function OperatorUserPage({ params }) {
 
   return (
     <>
-      <OperatorHeader />
+      <OperatorHeader active="users" />
       <main className="mx-auto max-w-[1100px] px-6 py-12 md:px-10 md:py-16">
         <Link
           href="/operator"
@@ -94,42 +106,31 @@ export default async function OperatorUserPage({ params }) {
               <span className="h-px w-8 bg-accent" aria-hidden="true" />
               {detail.modulesHeading}
             </h2>
-            <div className="mt-8 space-y-3">
-              {(assignments || []).map((a) => (
-                <div
-                  key={a.module_id}
-                  className="flex items-center justify-between rounded-2xl border border-edge bg-surface px-5 py-4 shadow-[var(--shadow-card)]"
-                >
-                  <p className="font-display text-lg text-foreground">
-                    {nameByModuleId[a.module_id] || a.module_id}
-                  </p>
-                  <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text">
-                    {modulesCopy.statusLabels[a.status] || a.status}
-                  </span>
-                </div>
-              ))}
-            </div>
 
-            <h2 className="mt-12 flex items-center gap-3 font-display text-xl font-medium text-foreground">
-              <span className="h-px w-8 bg-accent" aria-hidden="true" />
-              {detail.responsesHeading}
-            </h2>
-            <div className="mt-8 space-y-8">
+            {(assignments || []).length === 0 && (
+              <p className="mt-6 text-base text-foreground-faint">{modulesCopy.emptyLabel}</p>
+            )}
+
+            <div className="mt-8 space-y-6">
               {(assignments || []).map((a) => {
                 const moduleResponses = responsesByModuleId[a.module_id] || {};
-                const steps = ["reflection_prompt", "micro_action", "check_in"];
                 return (
-                  <div key={a.module_id}>
-                    <h3 className="text-xs font-semibold uppercase tracking-widest text-foreground-faint">
-                      {nameByModuleId[a.module_id] || a.module_id}
-                    </h3>
-                    <div className="mt-4 space-y-3">
-                      {steps.map((step) => (
-                        <div
-                          key={step}
-                          className="rounded-2xl border border-edge bg-surface px-5 py-4 shadow-[var(--shadow-card)]"
-                        >
-                          <p className="text-sm font-semibold text-accent-text">
+                  <div
+                    key={a.module_id}
+                    className="overflow-hidden rounded-2xl border border-edge bg-surface shadow-[var(--shadow-card)]"
+                  >
+                    <div className="flex items-center justify-between border-b border-edge bg-surface-tint/60 px-5 py-3">
+                      <p className="font-display text-lg text-foreground">
+                        {nameByModuleId[a.module_id] || a.module_id}
+                      </p>
+                      <span className="rounded-full bg-accent-soft px-3 py-1 text-xs font-medium text-accent-text">
+                        {modulesCopy.statusLabels[a.status] || a.status}
+                      </span>
+                    </div>
+                    <div className="divide-y divide-edge">
+                      {RESPONSE_STEPS.map((step) => (
+                        <div key={step} className="px-5 py-4">
+                          <p className="text-xs font-semibold uppercase tracking-widest text-foreground-faint">
                             {modulesCopy.stepLabels[step]}
                           </p>
                           <p className="mt-2 text-base leading-relaxed text-foreground">

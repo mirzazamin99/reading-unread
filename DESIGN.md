@@ -2,28 +2,28 @@
 name: Dr. Aamir — Personal Brand
 description: Canva's warm approachability and Apple's spacious restraint, anchored by Dr. Aamir's confident editorial identity — with light/dark modes.
 colors:
-  surface-light: "#fffdfb"
-  surface-tint-light: "#f7eee6"
+  surface-light: "#f9f1e8"
+  surface-tint-light: "#f1e4d5"
   foreground-light: "#1a140f"
   foreground-dim-light: "#6b5c4d"
   foreground-faint-light: "#9c8a78"
-  edge-light: "#e7ddd2"
-  surface-dark: "#3d0f18"
-  surface-tint-dark: "#4a1720"
+  edge-light: "#ddceba"
+  surface-dark: "#0f2038"
+  surface-tint-dark: "#16294a"
   foreground-dark: "#f4ebdc"
   foreground-dim-dark: "#c7b49b"
   foreground-faint-dark: "#a8877c"
-  edge-dark: "#5c2a34"
-  accent-light: "#82232f"
-  accent-hover-light: "#9a2c3a"
-  accent-press-light: "#5c1822"
-  accent-dark: "#b8324f"
-  accent-hover-dark: "#d13d5c"
-  accent-press-dark: "#8c2540"
-  accent-soft-light: "#f4dedc"
-  accent-soft-dark: "#522029"
+  edge-dark: "#2e4a6e"
+  accent-light: "#1f3a5c"
+  accent-hover-light: "#2c4f79"
+  accent-press-light: "#16283f"
+  accent-dark: "#4a7fd1"
+  accent-hover-dark: "#5c90de"
+  accent-press-dark: "#3868ac"
+  accent-soft-light: "#e1e9f2"
+  accent-soft-dark: "#223f63"
   cta-band-light: "#16110c"
-  cta-band-dark: "#1c070d"
+  cta-band-dark: "#081222"
 typography:
   display:
     fontFamily: "Bodoni Moda, Georgia, serif"
@@ -63,7 +63,7 @@ components:
 
 Most of the page lives on a warm, spacious ground with Apple-scale whitespace and Canva-style soft, friendly structure: pill-shaped buttons, gently tinted alternating sections, small rounded accent badges, subtle scroll-triggered reveals. Every page closes on one deliberate contrast band, the "raised voice" moment where the booking CTA lives.
 
-The system ships in two modes, light (default) and dark, toggled by the visitor and remembered across visits. Dark mode is not a dimmed version of light mode: its base ground is a rich, solid maroon (user-specified), not a warm near-black. The closing CTA band stays a distinct, genuinely re-themed surface in both modes: warm near-black in light mode, and an even deeper near-black maroon than the page itself in dark mode, so it still reads as the one raised voice rather than disappearing into a now-maroon page. Canva's and Apple's actual color systems are not imported anywhere; only their structural habits (pill controls, whitespace, soft tinting) were borrowed.
+The system ships in two modes, light (default) and dark, toggled by the visitor and remembered across visits. Dark mode is not a dimmed version of light mode: its base ground is a rich, solid navy (user-specified), not a warm near-black. The closing CTA band stays a distinct, genuinely re-themed surface in both modes: warm near-black in light mode, and an even deeper near-black navy than the page itself in dark mode, so it still reads as the one raised voice rather than disappearing into a now-navy page. Canva's and Apple's actual color systems are not imported anywhere; only their structural habits (pill controls, whitespace, soft tinting) were borrowed.
 
 **Key Characteristics:**
 - Warm, theme-aware ground (`surface`/`surface-tint`) for most sections; a separately-tuned `cta-band` token (not the same as `surface`) for every closing CTA, distinct in both modes
@@ -76,29 +76,29 @@ The system ships in two modes, light (default) and dark, toggled by the visitor 
 ## Colors
 
 ### Primary
-- **`accent` (button fill), theme-aware:** Oxblood in light mode (`#82232f`, hover `#9a2c3a`, pressed `#5c1822`); a brighter, more saturated Ruby in dark mode (`#b8324f`, hover `#d13d5c`, pressed `#8c2540`). The light-mode oxblood reads muddy/brown against a dark ground, so dark mode gets its own richer value rather than reusing the light one. Used for the primary CTA fill only.
-- **`accent-text` (inline text/marks), theme-aware:** Oxblood in light mode (same `#82232f`), Bright Rose in dark mode (`#dd8188`). Used for the emphasized hero clause, numeral-badge digits, and checkmarks. Distinct from `accent`: text needs a lighter touch than a filled button does.
-- **Blush / Deep Wine** (`accent-soft`): pale wine in light mode (`#f4dedc`), muted wine in dark mode (`#522029`, lightened from an earlier value so it still reads as its own surface against the new maroon ground). Numeral-badge background only.
+- **`accent` (button fill), theme-aware:** Navy in light mode (`#1f3a5c`, hover `#2c4f79`, pressed `#16283f`); a brighter, more saturated Azure in dark mode (`#4a7fd1`, hover `#5c90de`, pressed `#3868ac`). The light-mode navy reads flat/dull against a dark ground, so dark mode gets its own richer, more luminous value rather than reusing the light one. Used for the primary CTA fill only.
+- **`accent-text` (inline text/marks), theme-aware:** Navy in light mode (same `#1f3a5c`), Sky in dark mode (`#9fc1ee`). Used for the emphasized hero clause, numeral-badge digits, and checkmarks. Distinct from `accent`: text needs a lighter touch than a filled button does.
+- **Pale Sky / Muted Navy** (`accent-soft`): pale sky-blue in light mode (`#e1e9f2`), muted navy in dark mode (`#223f63`, kept a step lighter than the surrounding navy ground so it still reads as its own surface). Numeral-badge background only.
 
 ### Neutral — theme-aware (`surface`, `surface-tint`, `foreground`, `foreground-dim`, `foreground-faint`, `edge`)
 | Role | Light | Dark |
 |---|---|---|
-| Page ground | Warm White `#fffdfb` | Deep Maroon `#3d0f18` (user-specified; not a near-black) |
-| Alt section tint | Soft Blush `#f7eee6` | Lifted Maroon `#4a1720` |
+| Page ground | Warm White `#f9f1e8` | Deep Navy `#0f2038` (user-specified; not a near-black) |
+| Alt section tint | Soft Blush `#f1e4d5` | Lifted Navy `#16294a` |
 | Primary text | Warm Charcoal `#1a140f` | Bone `#f4ebdc` |
 | Secondary text | Warm Taupe `#6b5c4d` | Warm Taupe (light) `#c7b49b` |
-| Tertiary text | Faint Umber `#9c8a78` | Warm Mauve `#a8877c` (brightened from an earlier value for legibility against the maroon ground) |
-| Hairline | `#e7ddd2` | `#5c2a34` (brightened from an earlier near-invisible value) |
-| Accent-on-text (`accent-text`) | Oxblood `#82232f` | Bright Rose `#dd8188` |
+| Tertiary text | Faint Umber `#9c8a78` | Warm Mauve `#a8877c` |
+| Hairline | `#ddceba` | `#2e4a6e` (brightened from an earlier near-invisible value; navy-grey rather than the old warm tone so it still reads against a blue ground) |
+| Accent-on-text (`accent-text`) | Navy `#1f3a5c` | Sky `#9fc1ee` |
 
 ### Closing CTA band (`cta-band`, theme-aware, always distinct from `surface`)
-- **Light:** Warm Near-Black `#16110c` (unchanged from the original single-dark-band system).
-- **Dark:** Near-Black Maroon `#1c070d`, a genuinely darker step below the page's own `#3d0f18` ground. Since dark mode's base ground is now maroon itself, the closing band has to go darker (not brighter, and not the old near-black) to still read as the one raised-voice moment.
+- **Light:** Warm Near-Black `#16110c` (unchanged; it was already a neutral near-black, not part of the red family).
+- **Dark:** Near-Black Navy `#081222`, a genuinely darker step below the page's own `#0f2038` ground. Since dark mode's base ground is navy itself, the closing band has to go darker (not brighter) to still read as the one raised-voice moment.
 
 ### Named Rules
 **The Closing Band Is Never Surface.** `cta-band` is its own token in every theme. It must never be aliased to `surface`, even where the values happen to be close, because the two are allowed to diverge (as they now do in dark mode) without a code change.
 
-**The One Accent Rule.** Oxblood never fills a background larger than a button or a badge.
+**The One Accent Rule.** Navy never fills a background larger than a button or a badge.
 
 ## Typography
 
@@ -131,8 +131,8 @@ Sticky (`sticky top-0 z-50`), frosted (`bg-surface/80 backdrop-blur-md`), hairli
 Flat by default; depth lives only on the primary CTA pill, as a soft, offset, accent-tinted glow.
 
 ### Shadow Vocabulary
-- **CTA rest** (`0 14px 28px -12px rgba(130,35,47,0.5)`)
-- **CTA hover** (`0 18px 34px -10px rgba(154,44,58,0.55)`)
+- **CTA rest** (`0 14px 28px -12px rgba(31,58,92,0.5)`)
+- **CTA hover** (`0 18px 34px -10px rgba(44,79,121,0.55)`)
 
 ## Shapes
 
