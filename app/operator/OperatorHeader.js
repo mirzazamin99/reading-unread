@@ -1,6 +1,5 @@
 import Link from "next/link";
 import SignOutButton from "./SignOutButton";
-import ThemeToggle from "../components/ThemeToggle";
 import content from "../../content.json";
 
 const { queue } = content.admin;
@@ -37,7 +36,6 @@ export default function OperatorHeader({ active }) {
           </nav>
         </div>
         <div className="flex items-center gap-2">
-          <ThemeToggle />
           <SignOutButton label={queue.signOutLabel} />
         </div>
       </div>

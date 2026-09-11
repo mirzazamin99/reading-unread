@@ -122,7 +122,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Closing CTA — deliberate contrast band, maroon in dark mode */}
+      {/* Closing CTA — deliberate contrast band */}
       <section id="consultation" className="bg-cta-band">
         <div className="mx-auto max-w-[900px] px-6 py-28 text-center md:px-12 md:py-44">
           <p className="mx-auto max-w-[22ch] font-display text-4xl leading-[1.1] font-medium text-paper md:text-6xl">

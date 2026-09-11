@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import content from "../../content.json";
 import AssessmentButton from "./AssessmentButton";
-import ThemeToggle, { useTheme } from "./ThemeToggle";
-import { CloseIcon, MenuIcon, MoonIcon, SunIcon } from "./icons";
+import { CloseIcon, MenuIcon } from "./icons";
 
 const { nav } = content.site;
 
@@ -18,7 +17,6 @@ const NAV_LINKS = [
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [savedUserId, setSavedUserId] = useState<string | null>(null);
-  const { theme, toggle } = useTheme();
 
   useEffect(() => {
     // Reads a value an external system (localStorage) already holds before
@@ -74,7 +72,6 @@ export default function Header() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <ThemeToggle />
           {savedUserId && (
             <Link
               href={`/modules?userId=${savedUserId}`}
@@ -93,7 +90,6 @@ export default function Header() {
         </div>
 
         <div className="flex items-center gap-1 md:hidden">
-          <ThemeToggle />
           <button
             type="button"
             onClick={() => setMenuOpen((open) => !open)}
@@ -129,20 +125,6 @@ export default function Header() {
           </nav>
 
           <div className="mt-auto px-6 pb-10 pt-6">
-            <button
-              type="button"
-              onClick={toggle}
-              className="mb-4 flex w-full items-center justify-between rounded-2xl bg-surface-tint px-5 py-4 text-foreground"
-            >
-              <span className="text-sm font-medium">
-                {theme === "dark" ? "Light mode" : "Dark mode"}
-              </span>
-              {theme === "dark" ? (
-                <SunIcon className="h-[1.1rem] w-[1.1rem]" />
-              ) : (
-                <MoonIcon className="h-[1.1rem] w-[1.1rem]" />
-              )}
-            </button>
             <AssessmentButton className="w-full justify-center" onClick={closeMenu} />
             {savedUserId && (
               <Link
